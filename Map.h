@@ -15,13 +15,15 @@ private:
 	double startingPointX;
 	double startingPointY;
 	bool gameOver;
+	int score = 0;
+
+public:
 	Barrier bar;
 	Snake sk;
 	Apple apples;
 	Pear pears;
-	int counter = 0;
 
-public:
+	// Methods
 	void setGameOver(bool gameOver) {
 		this->gameOver = gameOver;
 	}
@@ -54,6 +56,17 @@ public:
 		return startingPointY;
 	}
 
+	void setScore(int score) {
+		this->score = score;
+	}
+	int getScore() {
+		return score;
+	}
+
+	void addToScore(int points) {
+		score += points;
+	}
+
 
 	Map() {
 		width = 30;
@@ -71,9 +84,9 @@ public:
 
 	// lets draw the damn map
 	void drawMap() {
-		
+
 		system("cls");
-		for (int i = 0; i < width + 2; i++) 
+		for (int i = 0; i < width + 2; i++)
 			std::cout << bar.getValue();
 
 		std::cout << std::endl;
@@ -91,19 +104,25 @@ public:
 				else {
 					bool print = false;
 					for (int k = 0; k < sk.getLength(); k++) {
-						if (sk.getTailX(k) == j && )
+						if (sk.getTailY(k) == i && sk.getTailX(k) == j) {
+							std::cout << sk.getTailValue();
+							print = true;
+						}
 					}
+					if (!print)
+						std::cout << " ";
 				}
+				if (j == width - 1)
+					std::cout << bar.getValue();
 			}
+			std::cout << std::endl;
 		}
 
-		for (int i = 0; i < width + 2; i++) 
+		for (int i = 0; i < width + 2; i++)
 			std::cout << bar.getValue();
 
 
-		counter++;
 		Sleep(10);
 	}
 };
-
 
