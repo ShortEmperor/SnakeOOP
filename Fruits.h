@@ -1,9 +1,9 @@
-#pragma once
+//#pragma once
 #include <iostream>
 #include <stdlib.h>
 #include <conio.h>
 #include <time.h>
-#include "Map.h";
+#include "Map.h"
 class Fruits
 {
 private:
@@ -11,7 +11,7 @@ private:
 	int positionY;
 	int grow;
 	char symbol;
-	Map map;
+	Map mp;
 
 public:
 	void setPositionX(int x) {
@@ -44,8 +44,8 @@ public:
 	virtual void valueOfSymbol() = 0;
 
 	Fruits() {
-		this->positionX = rand() % map.getWidth();
-		this->positionY = rand() % map.getHeight();
+		this->positionX = rand() % mp.getWidth();
+		this->positionY = rand() % mp.getHeight();
 	}
 };
 
