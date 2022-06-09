@@ -1,229 +1,137 @@
 //#pragma once
+
 #include <iostream>
-// We'll use cstd* instead of std* because the latter are deprecated
-#include <cstdlib>
-#include <cstdio>
-#include <conio.h>
-#include "Fruits.h"
+#include <Windows.h>
+#include "Snake.h"
 
+// We will not be using the standard namespace because this way looks cooler
 
-class Snake
+class Map
 {
 private:
-	int length;
-	int headPositionX;
-	int headPositionY;
-	int tailX[150];
-	int tailY[150];
-	double speed;
-	bool movement;
-	char headValue;
-	char tailValue;
-	int mWidth;
-	int mHeight;
-	bool mGO;
+	int width;
+	int height;
+	int startingPointX;
+	int startingPointY;
+	bool gameOver;
+	int score;
+	char barrier;
 
 public:
-	Apple apples;
-	Pear pears;
-	enum sDirection {STOP = 0, LEFT, RIGHT, UP, DOWN}; // an enumerator is a distinct type whose value is restricted to a range of values wich may include several explicitly named constants
-	sDirection direction;
 
-	// Constructor
+	// Default (and only) constructor
+	Map() {
+		// Let's setup this bad boy
+		height = 30; // Set the height to 30
+		width = 30; // Set the width to 30 
 
-	Snake() {
-		headPositionX = 15;
-		headPositionY = 15;
-		speed = 50;
-		headValue = 153;
-		tailValue = 111;
-		mWidth = 30;
-		mHeight = 30;
-		mGO = false;
-		length = 0;
-		direction = STOP;
+		// Let's make the starting point be in the middle of the board
+		startingPointX = width / 2;
+		startingPointY = height / 2;
+
+		// And obviusly you can't loose before you even start playing... or can you?
+		gameOver = false;
+
+		// Also let's set the character of the barrier, although this can be changed in the menu... hopefully
+		barrier = 178;
+
 	}
 
-	Snake(int sPX, int sPY, double sp, int mW, int mH) {
-		headPositionX = sPX;
-		headPositionY = sPY;
-		speed = sp;
-		headValue = 153;
-		tailValue = 111;
-		mWidth = mW;
-		mHeight = mH;
-		mGO = false;
-		length = 0;
-	}
-	
+	Snake sk;
+
 	//Setters and getters
-	void setLength(int length) {
-		this->length = length;
+	void setWidth(int width) {
+		this->width = width;
 	}
-	int getLength() {
-		return length;
+	int getWidth() {
+		return width;
 	}
-	void setHeadPositionX(int headPositionX) {
-		this->headPositionX = headPositionX;
+	void setHeight(int height) {
+		this->height = height;
 	}
-	int getHeadPositionX() {
-		return headPositionX;
+	int getHeight() {
+		return height;
 	}
-	void setHeadPositionY(int headPositionY) {
-		this->headPositionY = headPositionY;
+	void setStartingPointX(int startingPointX) {
+		this->startingPointX = startingPointX;
 	}
-	int getHeadPositionY() {
-		return headPositionY;
+	int getStartingPointX() {
+		return startingPointX;
 	}
-	int getTailX(int n) {
-		return tailX[n];
+	void setStartingPointY(int startingPointY) {
+		this->startingPointY = startingPointY;
 	}
-	int getTailY(int n) {
-		return tailY[n];
+	int getStartingPointY() {
+		return startingPointY;
 	}
-	void setSpeed(double speed) {
-		this->speed = speed;
+	void setGameOver(bool gameOver) {
+		this->gameOver = gameOver;
 	}
-	double getSpeed() {
-		return speed;
+	bool getGameOver() {
+		return gameOver;
 	}
-	void setMovement(bool movement) {
-		this->movement = movement;
+	void setScore(int score) {
+		this->score = score;
 	}
-	bool getMovement() {
-		return movement;
+	int getScore() {
+		return score;
 	}
-	void setHeadValue(char headValue) {
-		this->headValue = headValue;
+	void setBarrier(char barrier) {
+		this->barrier = barrier;
 	}
-	char getHeadValue() {
-		return headValue;
-	}
-	void setTailValue(char tailValue) {
-		this->tailValue = tailValue;
-	}
-	char getTailValue() {
-		return tailValue;
-	}
-	void setMWidth(int mWidth) {
-		this->mWidth = mWidth;
-	}
-	int getMWidth() {
-		return mWidth;
-	}
-	void setMHeight(int mHeight) {
-		this->mHeight = mHeight;
-	}
-	int getMHeight() {
-		return mHeight;
-	}
-	void setMGO(bool mGO) {
-		this->mGO = mGO;
-	}
-	bool getMGO() {
-		return mGO;
+	char getBarrier() {
+		return barrier;
 	}
 
 	// Other methods
 
-	// Get user input
-	void getMove() {
-		if (_kbhit) {
-			switch (_getch())
-			{
-			case 'w':
-				direction = UP;
-				break;
-			case 'a':
-				direction = LEFT;
-				break;
-			case 's':
-				direction = DOWN;
-				break;
-			case 'd':
-				direction = RIGHT;
-			case 'x':
-				mGO = true;
-				break;
-			default:
-				break;
+	// Let's print the bloody map
+	void drawMap() {
+		system("cls"); // Clear the screen... but it's not linux :(
+		// Print the top frontier
+		for (int i = 0; i < width + 2; i++)  // We use the "+ 2" to fill a gap in the process of drawing the board
+			std::cout << barrier;
+
+
+		std::cout << std::endl;
+
+
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				if (j == 0) // If its the begining of the map print a barrier
+					std::cout << barrier;
+				if (i == sk.getHeadPositionY() && j == sk.getHeadPositionX()) // If the head of the snake is in the coordinate being printed print the damn head
+					std::cout << sk.getHeadValue();
+				else if (i == sk.apples.getPositionY() && j == sk.apples.getPositionX()) // If theres an apple on the coordinate being printed put a damn apple
+					std::cout << sk.apples.getSymbol();
+				/*else if (i == sk.pears.getPositionY() && j == sk.pears.getPositionX()) // If theres a pear... Well you get the idea... :/
+					std::cout << sk.pears.getSymbol();*/
+
+				else { // Print the tail of the snake
+					bool print = false;
+					for (int k = 0; k < sk.getLength(); k++) {
+						if (sk.getTailY(k) == i && sk.getTailX(k) == j) {
+							std::cout << sk.getTailValue();
+							print = true;
+						}
+					}
+					if (!print)
+						std::cout << " ";
+				}
+				if (j == width - 1)
+					std::cout << barrier;
 			}
-
+			std::cout << std::endl;
 		}
+
+		for (int i = 0; i < width + 2; i++)
+			std::cout << barrier;
+
+		std::cout << std::endl;
+		std::cout << "Score: " << sk.getLength() << std::endl;
+
 	}
 
-	// Let's use the captured input to actually move the snake
-	void applyMovement(){
-		/*
-		We are goin to use some place-holder varibales to handle the snake's growth
-		this are not atributes nor are they going to be used anywhere else in the code.
-		*/
-
-		// Handle snake's growth
-		int pX = tailX[0];
-		int pY = tailY[0];
-		int pv2X, pv2Y;
-
-		tailX[0] = headPositionX;
-		tailY[0] = headPositionY;
-
-		for (int i = 1; i < length; i++) {
-			pv2X = tailX[i];
-			pv2Y = tailY[i];
-			tailX[i] = pX;
-			tailY[i] = pY;
-			pX = pv2X;
-			pY = pv2Y;
-		}
-
-		switch (direction)
-		{
-		case LEFT:
-			headPositionX--;
-			break;
-		case RIGHT:
-			headPositionX++;
-			break;
-		case UP:
-			headPositionY--;
-			break;
-		case DOWN:
-			headPositionY++;
-			break;
-		default:
-			break;
-		}
-
-		// Check collisions with frontiers
-		if (headPositionX > mWidth || headPositionX < 0 || headPositionY > mHeight || headPositionY < 0)
-			mGO = true;
-
-		// Check collisions with itself
-		for (int i = 0; i < length; i++)
-			if (tailX[i] == headPositionX && tailY[i] == headPositionY)
-				mGO = true;
-
-		// Check collisions with fruits
-
-		// Let's do apples first
-		if (headPositionX == apples.getPositionX() && headPositionY == apples.getPositionY()) {
-			
-			apples.setPositionX(rand() % mWidth);
-			apples.setPositionY(rand() % mHeight);
-			length += apples.getGrowth();
-		}
-
-		// Now let's do pears
-		if (headPositionX == pears.getPositionX() && headPositionY == pears.getPositionY()) {
-			
-			pears.setPositionX(rand() % mWidth);
-			pears.setPositionY(rand() % mHeight);
-			length += pears.getGrowth();
-		}
-
-
-	}
 
 
 };
-
