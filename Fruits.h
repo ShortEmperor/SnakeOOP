@@ -12,7 +12,7 @@ private:
 	int positionY;
 	int growth;
 	char symbol;
-	
+
 
 public:
 
@@ -47,7 +47,7 @@ public:
 	char getSymbol() {
 		return symbol;
 	}
-	
+
 
 	virtual void valueOfFruit() = 0;
 	virtual void valueOfSymbol() = 0;
@@ -57,7 +57,7 @@ class Apple : public Fruits {
 public:
 
 	Apple() {
-		
+
 
 		setPositionX(rand() % 30);
 		setPositionY(rand() % 30);
@@ -74,11 +74,12 @@ public:
 
 };
 
+/*
 class Pear : public Fruits {
 public:
 
 	Pear() {
-		
+
 
 		setPositionX(rand() % 30);
 		setPositionY(rand() % 30);
@@ -93,4 +94,5 @@ public:
 		setSymbol(234);
 	}
 };
+*/
 
