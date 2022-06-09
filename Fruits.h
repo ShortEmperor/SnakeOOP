@@ -1,37 +1,45 @@
 //#pragma once
+
 #include <iostream>
-#include <stdlib.h>
+#include <cstdlib>
 #include <conio.h>
-#include <time.h>
-#include "Map.h"
+
+
 class Fruits
 {
 private:
 	int positionX;
 	int positionY;
-	int grow;
+	int growth;
 	char symbol;
-	Map mp;
+	
 
 public:
-	void setPositionX(int x) {
-		this->positionX = x;
+
+	Fruits() {
+		positionX = rand() % 30;
+		positionY = rand() % 30;
+		growth = 1;
+		symbol = 70;
+	}
+
+	void setPositionX(int positionX) {
+		this->positionX = positionX;
 	}
 	int getPositionX() {
 		return positionX;
 	}
-	void setPositionY(int y) {
-		this->positionY = y;
+	void setPositionY(int positionY) {
+		this->positionY = positionY;
 	}
 	int getPositionY() {
 		return positionY;
 	}
-
-	void setGrow(int grow) {
-		this->grow = grow;
+	void setGrowth(int growth) {
+		this->growth = growth;
 	}
-	int getGrow() {
-		return grow;
+	int getGrowth() {
+		return growth;
 	}
 	void setSymbol(char symbol) {
 		this->symbol = symbol;
@@ -39,33 +47,50 @@ public:
 	char getSymbol() {
 		return symbol;
 	}
+	
 
 	virtual void valueOfFruit() = 0;
 	virtual void valueOfSymbol() = 0;
-
-	Fruits() {
-		this->positionX = rand() % mp.getWidth();
-		this->positionY = rand() % mp.getHeight();
-	}
 };
-
 
 class Apple : public Fruits {
 public:
+
+	Apple() {
+		
+
+		setPositionX(rand() % 30);
+		setPositionY(rand() % 30);
+		setSymbol(227);
+		setGrowth(1);
+	}
+
 	void valueOfFruit() {
-		this->setGrow(1);
+		setGrowth(1);
 	}
 	void valueOfSymbol() {
-		this->setSymbol(227);
+		setSymbol(227);
 	}
+
 };
 
 class Pear : public Fruits {
 public:
+
+	Pear() {
+		
+
+		setPositionX(rand() % 30);
+		setPositionY(rand() % 30);
+		setSymbol(234);
+		setGrowth(2);
+	}
+
 	void valueOfFruit() {
-		this->setGrow(2);
+		setGrowth(2);
 	}
 	void valueOfSymbol() {
-		this->setSymbol(234);
+		setSymbol(234);
 	}
 };
+
