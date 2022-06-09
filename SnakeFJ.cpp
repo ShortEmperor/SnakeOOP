@@ -53,7 +53,7 @@ void titulo() {
 	posicion(60, 13); cout << "        +#+ +#+  +#+#+# +#+     +#+ +#+  +#+   +#+            "; Sleep(100);
 	posicion(60, 14); cout << "#+#    #+# #+#   #+#+# #+#     #+# #+#   #+#  #+#             "; Sleep(100);
 	posicion(60, 15); cout << "########  ###    #### ###     ### ###    ### ##########       "; Sleep(100);
-	
+
 	posicion(60, 25); cout << "                   ~*************O       \n"; Sleep(100);
 	posicion(60, 26); cout << "         WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW\n"; Sleep(100);
 
@@ -149,8 +149,9 @@ void GameOver() {
 	posicion(60, 15); cout << "#+#    #+# #+#     #+# #+#       #+# #+#                #+#    #+#   #+#+#+#   #+#        #+#    #+#     "; Sleep(100);
 	posicion(60, 16); cout << "########  ###     ### ###       ### ##########          ########      ###     ########## ###    ###      "; Sleep(100);
 
-	posicion(60, 20); cout << "Presione cualquier tecla para salir...";
-	
+	posicion(60, 22); cout << "Presione cualquier tecla para salir...";
+	//_getch();
+
 }
 
 
@@ -164,7 +165,7 @@ int main()
 	_getch();
 	fflush(stdin);
 	pintar();
-	
+
 
 
 
@@ -208,11 +209,13 @@ int main()
 		Sleep(50);
 	}
 	mapa.setScore(mapa.sk.getLength());
-	posicion(95, 17); cout << "Tu puntuacion final es: " << mapa.getScore();
+	
 
 	GameOver();
+	posicion(95, 19); cout << "Tu puntuacion final fue: " << mapa.getScore();
+	system("pause>NULL");
 	fflush(stdin);
-	_getch();
+	
 
 
 
