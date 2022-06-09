@@ -64,7 +64,7 @@ public:
 	int getStartingPointY() {
 		return startingPointY;
 	}
-	void setGameOver(bool gameOver){
+	void setGameOver(bool gameOver) {
 		this->gameOver = gameOver;
 	}
 	bool getGameOver() {
@@ -91,10 +91,10 @@ public:
 		// Print the top frontier
 		for (int i = 0; i < width + 2; i++)  // We use the "+ 2" to fill a gap in the process of drawing the board
 			std::cout << barrier;
-		
+
 
 		std::cout << std::endl;
-		
+
 
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
@@ -104,8 +104,8 @@ public:
 					std::cout << sk.getHeadValue();
 				else if (i == sk.apples.getPositionY() && j == sk.apples.getPositionX()) // If theres an apple on the coordinate being printed put a damn apple
 					std::cout << sk.apples.getSymbol();
-				else if (i == sk.pears.getPositionY() && j == sk.pears.getPositionX()) // If theres a pear... Well you get the idea... :/
-					std::cout << sk.pears.getSymbol();
+				/*else if (i == sk.pears.getPositionY() && j == sk.pears.getPositionX()) // If theres a pear... Well you get the idea... :/
+					std::cout << sk.pears.getSymbol();*/
 
 				else { // Print the tail of the snake
 					bool print = false;
@@ -135,4 +135,3 @@ public:
 
 
 };
-
